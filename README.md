@@ -38,11 +38,6 @@ that - for obvious reasons - is absent from the repo.
 It is expected to have following content:
 
 ```python
-mysqldatabase = "***"
-mysqluid = "***"
-mysqlpwd = "***"
-charset = "utf8"
-mysqlserver = "***"
 picked_numbers_email = "*** <***@***.***>"
 sender_email = "***@***.***"
 sender_password = "***"
@@ -57,11 +52,14 @@ smtp_server = "***"
 Each module is self-contained. Run any script directly:
 
 ```bash
-python tasks/todo.py
-python files/organizer.py
-python scraper/fetch.py
-python scheduler/remind.py
+python renamer.py
+python wiper.py
+python picknrs.py
+python sendnrs.py
 ```
+
+The renamer.py is called every 5' from the windows task scheduler.
+The sendnrs.py is called once a day from the task scheduler.
 
 ---
 
