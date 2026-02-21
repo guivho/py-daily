@@ -1,0 +1,4 @@
+# py-daily requirements
+
+# No non standard pythons modules are used
+# In my pc, scheduling is done through Windows Task Scheduler.
