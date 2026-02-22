@@ -1,4 +1,4 @@
-# Time-stamp: <2025-10-01 11:04:24 wiper.py Guivho>
+# Time-stamp: <2026-02-22 13:58:23 wiper.py Guivho>
 
 import datetime
 import os
@@ -13,6 +13,9 @@ class Counts:
         self.nroffiles = 0
         self.nrfilwipd = 0
         self.nrofbytes = 0
+        self.filwipers = 0
+        self.dirwipers = 0
+        self.recursers = 0
 
     def add(self, c):
         self.nrsubdirs += c.nrsubdirs
@@ -20,14 +23,20 @@ class Counts:
         self.nroffiles += c.nroffiles
         self.nrfilwipd += c.nrfilwipd
         self.nrofbytes += c.nrofbytes
+        self.filwipers += c.filwipers
+        self.dirwipers += c.dirwipers
+        self.recursers += c.recursers
 
     def __str__(self):
         return f'''
-  nr of subdirs       : {p3.dottify(self.nrsubdirs,15)}
-  nr of subdirs wiped : {p3.dottify(self.nrsubwipd,15)}
-  nr of files         : {p3.dottify(self.nroffiles,15)}
-  nr of files wiped   : {p3.dottify(self.nrfilwipd,15)}
-  nr of bytes freed   : {p3.dottify(self.nrofbytes,15)}
+  nr of subdirs         : {p3.dottify(self.nrsubdirs,15)}
+  nr of subdirs wiped   : {p3.dottify(self.nrsubwipd,15)}
+  nr of files           : {p3.dottify(self.nroffiles,15)}
+  nr of files wiped     : {p3.dottify(self.nrfilwipd,15)}
+  nr of bytes freed     : {p3.dottify(self.nrofbytes,15)}
+  nr of file wipe fails : {p3.dottify(self.filwipers,15)}
+  nr of recurse fails   : {p3.dottify(self.recursers,15)}
+  nr of dir wipe fails  : {p3.dottify(self.dirwipers,15)}
 '''
 
 sp = {
@@ -48,6 +57,7 @@ def wipe(p, keepdate, counts):
         items = os.listdir(p)
     except PermissionError as permerr:
         log.log(f"\n{p} => PermissionError")
+        counts.recurserrs += 1
         return counts
     else:
         # recursive wipe all subdirs
@@ -66,6 +76,7 @@ def wipe(p, keepdate, counts):
                     os.rmdir(ps)
                 except Exception as inst:
                     exc = f" ===> {type(inst)}"
+                    counts.dirwipers += 1
                 if os.path.isdir(ps):
                     m = '!'
                 else:
@@ -86,6 +97,7 @@ def wipe(p, keepdate, counts):
                     os.remove(pf)
                 except Exception as inst:
                     exc = f" ===> {type(inst)}"
+                    counts.filwipers += 1
                 if os.path.isfile(pf):
                     w = '!'
                 else:
