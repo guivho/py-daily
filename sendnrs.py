@@ -1,4 +1,4 @@
-# Time-stamp: <2026-02-21 15:09:44 sendnrs.py Guivho>
+# Time-stamp: <2026-02-23 07:56:10 sendnrs.py Guivho>
 
 import datetime, smtplib, ssl, picknrs
 from constants import \
@@ -13,7 +13,7 @@ if iso in [2, 3, 6, 7]:
     # only pick on monday and friday
     exit(0)
 
-picked_nrs = picknrs.gofor(0,3)
+picked_nrs = picknrs.gofor(0,2)
 sender_email = sender_email
 password = sender_password
 receiver_email = picked_numbers_email
