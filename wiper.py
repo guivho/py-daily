@@ -1,4 +1,4 @@
-# Time-stamp: <2026-02-22 13:58:23 wiper.py Guivho>
+# Time-stamp: <2026-02-24 13:43:09 wiper.py Guivho>
 
 import datetime
 import os
@@ -57,7 +57,7 @@ def wipe(p, keepdate, counts):
         items = os.listdir(p)
     except PermissionError as permerr:
         log.log(f"\n{p} => PermissionError")
-        counts.recurserrs += 1
+        counts.recursers += 1
         return counts
     else:
         # recursive wipe all subdirs
